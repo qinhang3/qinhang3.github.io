@@ -11,23 +11,20 @@
   <style type="text/css">
     body {
       font-family: sans-serif;
+      display: flex;
+      justify-content: center;
     }
 
     #jsoneditor1,
     #jsoneditor2 {
-      width: 45%;
+      flex: 1;
       height: 900px;
-      /*margin-left: 1em;*/
-      margin-right: 0px;
-      margin-top: 0px;
-      display: inline-block;
-      /*position: absolute;*/
     }
   </style>
 </head>
 <body>
 <div id="jsoneditor1"></div>
-<div id="jsoneditor2" style="margin-left: 1em; position: absolute"></div>
+<div id="jsoneditor2" style="padding-left: 10px"></div>
 <img src="" id="previewImage" alt="" width="300" style="position: absolute; border: 2px solid; display: none"/>
 
 <script>
