@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>JSONEditor</title>
+
+  <link href="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.9.2/jsoneditor.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.9.2/jsoneditor.min.js"></script>
+
+  <style type="text/css">
+    body {
+      font-family: sans-serif;
+    }
+
+    #jsoneditor1,
+    #jsoneditor2 {
+      width: 45%;
+      height: 900px;
+      margin-right: 0px;
+      margin-top: 0px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<div id="jsoneditor1"></div>
+<div id="jsoneditor2"></div>
+<img src="" id="previewImage" alt="" width="300" style="position: absolute; border: 2px solid; display: none"/>
+
+<script>
+  // create editor 1
+  const  editor1 = new JSONEditor(document.getElementById('jsoneditor1'), {
+    mode: 'code',
+    onChangeText: function (jsonString) {
+      editor2.updateText(jsonString)
+      editor2.expandAll()
+    }
+  })
+
+  // create editor 2
+  const  editor2 = new JSONEditor(document.getElementById('jsoneditor2'), {
+    mode: 'tree',
+    modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
+    onChangeText: function (jsonString) {
+      editor1.updateText(jsonString)
+    },
+    onEvent: function(node, event) {
+      if (node.value !== undefined) {
+        console.log(event.type + ' event ' +
+                'on value ' + JSON.stringify(node.value) + ' ' +
+                'at path ' + JSON.stringify(node.path)
+        )
+        console.log(event.type)
+        if (event.type === "mouseover" && node.value.startsWith && node.value.startsWith("http")) {
+          document.getElementById("previewImage").src = event.target.innerHTML;
+          document.getElementById("previewImage").style.top = (event.clientY + 50) + "px";
+          document.getElementById("previewImage").style.left = (event.clientX + 50) + "px";
+          document.getElementById("previewImage").style.display = '';
+        }
+        if (event.type === "mouseout"){
+          document.getElementById("previewImage").style.display = 'none';
+        }
+      } else {
+        console.log(event.type + ' event ' +
+                'on field ' + JSON.stringify(node.field) + ' ' +
+                'at path ' + JSON.stringify(node.path)
+        )
+      }
+    }
+  })
+</script>
+</body>
+</html>
