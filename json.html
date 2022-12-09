@@ -26,7 +26,7 @@
 <body>
 <div id="jsoneditor1"></div>
 <div id="jsoneditor2" style="padding-left: 10px"></div>
-<img src="" id="previewImage" alt="" width="300" style="position: absolute; border: 2px solid; display: none"/>
+<img src="" id="previewImage" alt="" width="300" style="position: absolute; border: 2px solid; display: none; object-fit:cover"/>
 
 <script>
   // create editor 1
@@ -51,10 +51,10 @@
                 'on value ' + JSON.stringify(node.value) + ' ' +
                 'at path ' + JSON.stringify(node.path)
         )
-        console.log(event.type)
+        // console.log(event)
         if (event.type === "mouseover" && node.value.startsWith && node.value.startsWith("http")) {
           document.getElementById("previewImage").src = event.target.innerHTML;
-          document.getElementById("previewImage").style.top = (event.clientY + 50) + "px";
+          document.getElementById("previewImage").style.top = Math.min(Math.max(0, window.innerHeight - 400), event.clientY + 50) + "px";
           document.getElementById("previewImage").style.left = (event.clientX + 50) + "px";
           document.getElementById("previewImage").style.display = '';
         }
