@@ -7,6 +7,7 @@
 
   <link href="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.9.2/jsoneditor.min.css" rel="stylesheet">
   <script src="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.9.2/jsoneditor.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
 
   <style type="text/css">
     body {
@@ -44,6 +45,9 @@
     modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
     onChangeText: function (jsonString) {
       editor1.updateText(jsonString)
+    },
+    timestampFormat: function ({ field, value, path }) {
+        return dayjs(value).format("YYYY-MM-DD HH:mm:ss.SSS")
     },
     onEvent: function(node, event) {
       if (node.value !== undefined) {
